@@ -42,8 +42,8 @@ class Testmetrics
         $results = collect($this->results)->sortByDesc('run_time');
         $this->lines = "Test Class, Setup Time, Average Test Time, Run Time, Number Of Tests\n";
         foreach ($results as $testclass => $result) {
-            $line = implode(',', [$testclass, $result['setup_time'], $result['average_time'], $result['run_time'], $result['test_count'], "\n"]);
-            $this->lines .= $line;
+            $line = implode(',', [$testclass, $result['setup_time'], $result['average_time'], $result['run_time'], $result['test_count']]);
+            $this->lines .= $line . "\n";
         }
         if ($print) {
             echo $this->lines;
