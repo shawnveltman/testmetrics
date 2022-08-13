@@ -6,11 +6,9 @@ trait FileGeneratorTrait
 {
     public function get_contents_with_n_test_comments($number_of_comments = 2)
     {
-        $comments = ["Woah this is the start!"];
-        if ($number_of_comments > 0)
-        {
-            foreach (range(1, $number_of_comments) as $i)
-            {
+        $comments = ['Woah this is the start!'];
+        if ($number_of_comments > 0) {
+            foreach (range(1, $number_of_comments) as $i) {
                 $comments[] = "/** @test */ \nHello World\n";
             }
         }
@@ -71,6 +69,5 @@ trait FileGeneratorTrait
 
 
 EOD;
-
     }
 }

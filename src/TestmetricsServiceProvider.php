@@ -2,9 +2,9 @@
 
 namespace Shawnveltman\Testmetrics;
 
+use Shawnveltman\Testmetrics\Commands\TestmetricsCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Shawnveltman\Testmetrics\Commands\TestmetricsCommand;
 
 class TestmetricsServiceProvider extends PackageServiceProvider
 {
