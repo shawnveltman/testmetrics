@@ -5,6 +5,7 @@ namespace Shawnveltman\Testmetrics;
 class Testmetrics
 {
     public array $results = [];
+
     public string $lines = '';
 
     public function test_results_parser(string $contents)
@@ -14,18 +15,17 @@ class Testmetrics
         // JSON encode the XML, and then JSON decode to an array.
         $responseArray = json_decode(json_encode($xmlResponse), true);
 
-        foreach ($responseArray['testsuite']['testsuite'] as $values)
-        {
-            $testclass       = $values['@attributes']['name'];
-            $total_time      = (float)$values['@attributes']['time'];
-            $setup_time      = $this->get_setup_time($values);
+        foreach ($responseArray['testsuite']['testsuite'] as $values) {
+            $testclass = $values['@attributes']['name'];
+            $total_time = (float) $values['@attributes']['time'];
+            $setup_time = $this->get_setup_time($values);
             $time_less_setup = $total_time - $setup_time;
-            $avearge_time    = $time_less_setup / (int)$values['@attributes']['tests'];
+            $avearge_time = $time_less_setup / (int) $values['@attributes']['tests'];
             $test_count = $values['@attributes']['tests'];
 
-            $this->results[$testclass]['setup_time']   = round($setup_time, 3);
+            $this->results[$testclass]['setup_time'] = round($setup_time, 3);
             $this->results[$testclass]['average_time'] = round($avearge_time, 3);
-            $this->results[$testclass]['run_time']   = round($time_less_setup, 3);
+            $this->results[$testclass]['run_time'] = round($time_less_setup, 3);
             $this->results[$testclass]['test_count'] = $test_count;
         }
 
@@ -41,13 +41,11 @@ class Testmetrics
     {
         $results = collect($this->results)->sortByDesc('run_time');
         $this->lines = "Test Class, Setup Time, Average Test Time, Run Time, Number Of Tests\n";
-        foreach ($results as $testclass => $result)
-        {
-            $line = implode(',', [$testclass, $result['setup_time'], $result['average_time'], $result['run_time'], $result['test_count'],"\n"]);
+        foreach ($results as $testclass => $result) {
+            $line = implode(',', [$testclass, $result['setup_time'], $result['average_time'], $result['run_time'], $result['test_count'], "\n"]);
             $this->lines .= $line;
         }
-        if($print)
-        {
+        if ($print) {
             echo $this->lines;
         }
 
@@ -56,12 +54,10 @@ class Testmetrics
 
     private function get_setup_time($values): int|float
     {
-        if (isset($values['testcase'][0]['@attributes']['time']))
-        {
-            return (float)$values['testcase'][0]['@attributes']['time'];
+        if (isset($values['testcase'][0]['@attributes']['time'])) {
+            return (float) $values['testcase'][0]['@attributes']['time'];
         }
 
-        return (float)$values['@attributes']['time'];
-
+        return (float) $values['@attributes']['time'];
     }
 }
