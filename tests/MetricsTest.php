@@ -29,3 +29,17 @@ it('can print results', function () {
 
     expect($testmetrics->lines)->toContain('Test Class, Setup Time, Average Test Time, Run Time, Number Of Tests');
 });
+
+it('can get contents from path',function(){
+    $testmetrics = new Testmetrics();
+    $contents = $testmetrics->get_contents_from_path(__DIR__ .'/data/test-xml.xml');
+
+    expect($contents)->toContain('<testsuite');
+});
+
+it('works when we pass a path instead of contents',function(){
+    $testmetrics = new Testmetrics();
+    $path         = __DIR__ . '/data/test-xml.xml';
+    $testmetrics->test_results_parser(path: $path);
+    expect($testmetrics->get_results_count())->toBe(2);
+} );

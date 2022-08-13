@@ -8,8 +8,9 @@ class Testmetrics
 
     public string $lines = '';
 
-    public function test_results_parser(string $contents)
+    public function test_results_parser(string $contents = '',string $path = ''): Testmetrics
     {
+        $contents = $this->get_contents($contents, $path);
         $xmlResponse = simplexml_load_string($contents);
 
         // JSON encode the XML, and then JSON decode to an array.
@@ -59,5 +60,19 @@ class Testmetrics
         }
 
         return (float) $values['@attributes']['time'];
+    }
+
+    public function get_contents_from_path(string $path)
+    {
+        return file_get_contents($path);
+    }
+
+    private function get_contents(string $contents = '', string $path = ''): string
+    {
+        if($path !== '') {
+            return $this->get_contents_from_path($path);
+        }
+
+         return $contents;
     }
 }
