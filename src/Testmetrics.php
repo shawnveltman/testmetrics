@@ -13,15 +13,14 @@ class Testmetrics
         // JSON encode the XML, and then JSON decode to an array.
         $responseArray = json_decode(json_encode($xmlResponse), true);
 
-        foreach ($responseArray['testsuite']['testsuite'] as $values)
-        {
-            $testclass       = $values['@attributes']['name'];
-            $total_time      = (float)$values['@attributes']['time'];
-            $setup_time      = $this->get_setup_time($values);
+        foreach ($responseArray['testsuite']['testsuite'] as $values) {
+            $testclass = $values['@attributes']['name'];
+            $total_time = (float) $values['@attributes']['time'];
+            $setup_time = $this->get_setup_time($values);
             $time_less_setup = $total_time - $setup_time;
-            $avearge_time    = $time_less_setup / (int)$values['@attributes']['tests'];
+            $avearge_time = $time_less_setup / (int) $values['@attributes']['tests'];
 
-            $this->results[$testclass]['setup_time']   = round($setup_time, 3);
+            $this->results[$testclass]['setup_time'] = round($setup_time, 3);
             $this->results[$testclass]['average_time'] = round($avearge_time, 3);
         }
 
@@ -37,9 +36,8 @@ class Testmetrics
     {
         $results = collect($this->results)->sortByDesc('average_time');
 
-        foreach ($results as $testclass => $result)
-        {
-            echo $testclass . " setup:  {$result['setup_time']}, average_test_time: {$result['average_time']} \n";
+        foreach ($results as $testclass => $result) {
+            echo $testclass." setup:  {$result['setup_time']}, average_test_time: {$result['average_time']} \n";
         }
 
         return $this;
@@ -47,12 +45,10 @@ class Testmetrics
 
     private function get_setup_time($values): int|float
     {
-        if (isset($values['testcase'][0]['@attributes']['time']))
-        {
-            return (float)$values['testcase'][0]['@attributes']['time'];
+        if (isset($values['testcase'][0]['@attributes']['time'])) {
+            return (float) $values['testcase'][0]['@attributes']['time'];
         }
 
-        return (float)$values['@attributes']['time'];
-
+        return (float) $values['@attributes']['time'];
     }
 }
