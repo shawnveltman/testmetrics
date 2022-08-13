@@ -8,7 +8,7 @@ class Testmetrics
 
     public string $lines = '';
 
-    public function test_results_parser(string $contents = '',string $path = ''): Testmetrics
+    public function test_results_parser(string $contents = '', string $path = ''): Testmetrics
     {
         $contents = $this->get_contents($contents, $path);
         $xmlResponse = simplexml_load_string($contents);
@@ -69,10 +69,10 @@ class Testmetrics
 
     private function get_contents(string $contents = '', string $path = ''): string
     {
-        if($path !== '') {
+        if ($path !== '') {
             return $this->get_contents_from_path($path);
         }
 
-         return $contents;
+        return $contents;
     }
 }
