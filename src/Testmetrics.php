@@ -39,7 +39,7 @@ class Testmetrics
 
     public function print_results(bool $print = true)
     {
-        $results = collect($this->results)->sortByDesc('average_time');
+        $results = collect($this->results)->sortByDesc('run_time');
         $this->lines = "Test Class, Setup Time, Average Test Time, Run Time, Number Of Tests\n";
         foreach ($results as $testclass => $result)
         {
