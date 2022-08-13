@@ -35,7 +35,7 @@ class Testmetrics
 
     public function print_results()
     {
-        $results = collect($this->results)->sortByDesc('average_seconds_per_test');
+        $results = collect($this->results)->sortByDesc('average_time');
 
         foreach ($results as $testclass => $result)
         {
