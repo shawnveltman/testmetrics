@@ -35,7 +35,15 @@ and pass it to the test_results_parser method, then print your results. That's i
 
 ```php
 $testmetrics = new Shawnveltman\Testmetrics();
-echo $testmetrics->test_results_parser($file_contents)->print_results();
+echo $testmetrics->test_results_parser(contents: $file_contents)->print_results();
+```
+
+Alternately, you can pass a filepath instead of string contents.
+
+```php
+$testmetrics = new Shawnveltman\Testmetrics();
+$path = base_path('junit.xml');
+echo $testmetrics->test_results_parser(path: $path)->print_results();
 ```
 
 ## Testing
