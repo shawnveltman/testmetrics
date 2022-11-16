@@ -41,7 +41,7 @@ echo $testmetrics->test_results_parser(contents: $file_contents)->print_results(
 Alternately, you can pass a filepath instead of string contents.
 
 ```php
-$testmetrics = new \Shawnveltman\Testmetrics();
+$testmetrics = new \Shawnveltman\Testmetrics\Testmetrics();
 $path = base_path('junit.xml');
 echo $testmetrics->test_results_parser(path: $path)->print_results();
 ```
